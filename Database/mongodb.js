@@ -20,7 +20,7 @@ class Database {
             discriminator: data.discriminator,
             avatar: data.avatar,
             createdAt: data.createdAt
-        }
+        };
         let res = await Members.findOne(object);
         if (res === null) {
             res = await Members.findOne({ _id: data.id });
@@ -31,14 +31,17 @@ class Database {
                         discriminator: data.discriminator,
                         avatar: data.avatar
                     }
-                });
+                })
+                    .then(() => { return console.log(`${data.id}|${data.username} data are updated in database.`); })
+                    .catch(e => { console.error(`there was an error when i tried to log ${data.id} data in database: ${e.name}`) })
             }
             else {
                 Members.insertOne(object)
-                    .then(data => console.log(data))
-            }
-        }
-    }
+                    .then(() => { return console.log(`${data.id} data are saved in database.`); })
+                    .catch(e => { console.error(`there was an error when i tried to log ${data.id} data in database: ${e.name}`) })
+            };
+        };
+    };
 };
 
 export default new Database();

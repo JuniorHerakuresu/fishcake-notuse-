@@ -2,6 +2,7 @@ import { Client } from "eris";
 import './Message.js';
 import { loadCommands, loadEvents } from '../utils/CommandHandler.js';
 import { DisabledEvents, ColorLogs } from "../utils/Constants.js";
+import Fishcake from '../../fishcake.js'
 
 import Database from "../../Database/mongodb.js";
 
@@ -13,7 +14,7 @@ class FishCake extends Client {
         this.options.defaultImageFormat = 'webp'
         this.options.messageLimit = 0;
         this.options.disableEvents = DisabledEvents;
-    }
+    };
     //* Launch the bot, connect in database and makes everything work//
     async launch() {
         await this.connect()
@@ -35,7 +36,7 @@ class FishCake extends Client {
             let event = await import(`../.` + path);
             if ("default" in event) event = event.default;
             events.set(event.name, event);
-            this.on(event.name, event.listener.bind(this.client, this));
+            this.on(event.name, event.listener.bind(this.client, Fishcake));
         });
     };
 
@@ -56,7 +57,7 @@ class FishCake extends Client {
         const user = await this.getRESTUser(id).catch(() => null);
         if (user !== null) return user;
         else return null;
-    };
+    }; //add more later//
 
 };
 
