@@ -2,13 +2,12 @@ import Command from "../../utils/Command.js";
 import Client from "../../../fishcake.js";
 import EmbedBuilder from '../../utils/EmbedBuilder.js'
 export default new Command(`userinfo`, async function (interaction) {
-    Client.getDMChannel(interaction.member.user.id).then(dm => dm.createMessage(" "))
     let ID;
     if (!interaction.data.options) ID = interaction.member.id;
     else ID = interaction.data.options[0].value || interaction.data.options[1].value || interaction.user.id
     const User = await Client.getUser(ID);
     if (!User) return interaction.createMessage({ flags: 64, content: "I can't find this user. Make sure you put the right ID" });
-    const Member = await Client.getMember(interaction.channel.guild.id, User.id);
+    const Member = await Client.getMember(interaction.guildID, User.id);
     const Embed = new EmbedBuilder()
         .setAuthor(User.username + `#` + User.discriminator, `https://cdn.discordapp.com/avatars/${User.id}/${User.avatar}.webp?size=80`)
         .setTimestamp()
