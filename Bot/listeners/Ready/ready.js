@@ -6,6 +6,6 @@ export default new ClientEvent(`ready`, async function (FishCake) {
     FishCake.users.limit = 0;
 
     //Check ram usage every 1 hour//
-    setInterval(() => { console.log(ColorLogs.FgRed, `The bot uses ${Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100} MB`, ColorLogs.Reset) }, 60000)
+    setInterval(() => { console.log(ColorLogs.FgRed, `The bot uses ${Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100} MB`, ColorLogs.Reset) }, 600000)
 
 })
